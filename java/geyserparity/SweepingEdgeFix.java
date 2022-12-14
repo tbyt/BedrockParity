@@ -1,4 +1,4 @@
-package net.camotoy.geyserhacks;
+package geyserparity;
 
 import java.util.ArrayList;
 import java.util.List;

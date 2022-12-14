@@ -1,5 +1,5 @@
 name: Release GeyserHacks
-# workflow by TBYT, added nms reflectiosn from previous workflow file.
+# workflow by TBYT.
 on: push
 
 jobs:
@@ -15,18 +15,6 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
-      - name: Prepare NMS 1.17 mappings
-        run: mvn ca.bkaw:paper-nms-maven-plugin:1.2:init -pl :nms-1_17_R1
-
-      - name: Prepare NMS 1.18 mappings
-        run: mvn ca.bkaw:paper-nms-maven-plugin:1.2:init -pl :nms-1_18_R1
-
-      - name: Prepare NMS 1.18.2 mappings
-        run: mvn ca.bkaw:paper-nms-maven-plugin:1.2:init -pl :nms-1_18_R2
-
-      - name: Prepare NMS 1.19 mappings
-        run: mvn ca.bkaw:paper-nms-maven-plugin:1.2:init -pl :nms-1_19_R1
-
       - name: Cache Maven packages
         uses: actions/cache@v1
         with:
@@ -40,7 +28,7 @@ jobs:
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: spigot/target/GeyserHacks.jar
+          artifacts: spigot/target/GeyserParity.jar
           allowUpdates: true
           bodyFile: "README.md"
           draft: false

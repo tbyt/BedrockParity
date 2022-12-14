@@ -4,20 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.camotoy</groupId>
-    <artifactId>geyserhacks</artifactId>
-    <version>1.2-SNAPSHOT</version>
-    <modules>
-        <module>nms-provider</module>
-        <module>nms-1_17_R1</module>
-        <module>nms-1_18_R1</module>
-        <module>nms-1_18_R2</module>
-        <module>nms-1_19_R1</module>
-        <module>spigot</module>
-    </modules>
-    <packaging>pom</packaging>
+    <groupId>geyserparity</groupId>
+    <artifactId>geyserparity</artifactId>
+    <version>1</version>
 
-    <name>GeyserHacks</name>
+    <name>GeyserParity</name>
 
     <properties>
         <java.version>1.8</java.version>
@@ -35,7 +26,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
-            </plugin>
+            </plugin><!-- 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -82,7 +73,7 @@
                         </excludes>
                     </artifactSet>
                 </configuration>
-            </plugin>
+            </plugin> -->
         </plugins>
         <resources>
             <resource>
@@ -91,19 +82,19 @@
             </resource>
         </resources>
     </build>
-
+<!-- 
     <pluginRepositories>
         <pluginRepository>
             <id>bytecode.space</id>
             <url>https://repo.bytecode.space/repository/maven-public/</url>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories> -->
 
     <repositories>
         <repository>
             <id>papermc-repo</id>
             <url>https://papermc.io/repo/repository/maven-public/</url>
-        </repository>
+        </repository><!-- 
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
@@ -127,14 +118,32 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
-    </repositories>
+        </repository> -->
+        </repositories>
 
     <dependencies>
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
             <version>1.18.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spongepowered</groupId>
+            <artifactId>configurate-hocon</artifactId>
+            <version>4.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.geysermc</groupId>
+            <artifactId>core</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.geysermc.floodgate</groupId>
+            <artifactId>api</artifactId>
+            <version>2.1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

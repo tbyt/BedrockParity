@@ -1,0 +1,6 @@
+name: GeyserParity
+version: ${project.version}
+main: geyserparity.GeyserParity
+api-version: 1.19
+authors: [ TBYT, Camotoy ]
+softdepend: [Geyser-Spigot, floodgate]

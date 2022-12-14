@@ -1,6 +1,0 @@
-name: GeyserHacks
-version: ${project.version}
-main: net.camotoy.geyserhacks.GeyserHacks
-api-version: 1.13
-authors: [ Camotoy ]
-softdepend: [Geyser-Spigot, floodgate]
