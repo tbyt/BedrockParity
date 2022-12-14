@@ -28,7 +28,7 @@ jobs:
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: spigot/target/GeyserParity.jar
+          artifacts: target/GeyserParity.jar
           allowUpdates: true
           bodyFile: "README.md"
           draft: false
