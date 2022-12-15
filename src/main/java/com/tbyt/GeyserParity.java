@@ -1,4 +1,4 @@
-package geyserparity;
+package com.tbyt;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -48,6 +48,10 @@ public final class GeyserParity extends JavaPlugin {
 			if (config.sweepingEdgeFix()) {
 				Bukkit.getPluginManager().registerEvents(new SweepingEdgeFix(this), this);
 				getLogger().info("Sweeping Edge fix enabled.");
+			}
+			if (config.bannerOnShieldFix()) {
+				//Bukkit.getPluginManager().registerEvents(new BannerShieldFix(this), this);
+				getLogger().info("Banner Shields fix enabled.");
 			}
 		}
 	}
