@@ -26,7 +26,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
-            </plugin><!-- 
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -42,15 +42,15 @@
                             <relocations>
                                 <relocation>
                                     <pattern>org.spongepowered.configurate</pattern>
-                                    <shadedPattern>net.camotoy.geyserhacks.relocations.configurate</shadedPattern>
+                                    <shadedPattern>geyserparity.relocations.configurate</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>io.leangen.geantyref</pattern>
-                                    <shadedPattern>net.camotoy.geyserhacks.relocations.geantyref</shadedPattern>
+                                    <shadedPattern>geyserparity.relocations.geantyref</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.typesafe.config</pattern>
-                                    <shadedPattern>net.camotoy.geyserhacks.relocations.typesafeconfig</shadedPattern>
+                                    <shadedPattern>geyserparity.relocations.typesafeconfig</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
@@ -73,7 +73,7 @@
                         </excludes>
                     </artifactSet>
                 </configuration>
-            </plugin> -->
+            </plugin>
         </plugins>
         <resources>
             <resource>
