@@ -1,6 +1,6 @@
-name: Release GeyserHacks
+name: Release Geyserparity
 # workflow by TBYT.
-on: push
+on: [pull_request, push]
 
 jobs:
   build-job:
@@ -24,6 +24,15 @@ jobs:
 
       - name: Build with Maven
         run: mvn -B package -T 2C
+
+        #Using this to delete releases that only have the tag "release" when maven build is successful
+      - uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        with:
+          tag_name: release #(required) tag name to delete 
+          delete_release: true #(optional) default: true 
+          #repo: <owner>/<repoName> #(optional) target repository. default: repo running this action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release
         uses: ncipollo/release-action@v1
