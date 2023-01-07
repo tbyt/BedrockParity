@@ -21,9 +21,11 @@ import net.kyori.adventure.text.Component;
 
 public final class SweepingEdgeFix implements Listener {
     private final Plugin plugin;
+    private final Boolean anvilBookFix;
 
-    public SweepingEdgeFix(Plugin plugin) {
+    public SweepingEdgeFix(Plugin plugin, Boolean anvilBookFix) {
         this.plugin = plugin;
+        this.anvilBookFix = anvilBookFix;
     }
 
     /*
@@ -44,7 +46,7 @@ public final class SweepingEdgeFix implements Listener {
         if (item == null) {
             return;
         }
-        // all players must be checked for modifiedanvilbook tag.
+        // all players must be checked for modifiedanvilbook tag, even if AnvilBookFix is disabled.
         if (item.getType().equals(Material.ENCHANTED_BOOK)) {
             EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
             if (meta.hasStoredEnchant(Enchantment.SWEEPING_EDGE) && meta.hasLore()) {
@@ -106,26 +108,31 @@ public final class SweepingEdgeFix implements Listener {
      * anvil.412472/#post-3350913
      */
     @EventHandler
-    public void onPrepareAnvil(PrepareAnvilEvent event) {
-        Player player = (Player) event.getViewers().get(0);
-        if (!FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId())) {
-            return;
-        }
-
-        ItemStack secondItem = event.getInventory().getSecondItem();
-        if (event.getInventory().getFirstItem() != null && secondItem != null) {
-            if (secondItem.getType() == Material.ENCHANTED_BOOK) {
-                EnchantmentStorageMeta bookmeta = (EnchantmentStorageMeta) secondItem.getItemMeta();
-                if (bookmeta.hasStoredEnchant(Enchantment.SWEEPING_EDGE) && bookmeta.getStoredEnchants().size() == 1) {
-                	// will overwrite any existing lore.
-                    List<Component> loreList = new ArrayList<>();
-                    loreList.add(Component.text("modifiedanvilbook"));
-                    bookmeta.lore(loreList);
-                    bookmeta.addStoredEnchant(Enchantment.DURABILITY, 1, false);
-                    secondItem.setItemMeta(bookmeta);
-                    event.getInventory().setSecondItem(secondItem);
-                }
-            }
-        }
+    public void onPrepareAnvil(PrepareAnvilEvent event) 
+    {
+    	//If they enabled this fix in the config.
+    	if(anvilBookFix)
+    	{
+	        Player player = (Player) event.getViewers().get(0);
+	        if (!FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId())) {
+	            return;
+	        }
+	        
+	        ItemStack secondItem = event.getInventory().getSecondItem();
+	        if (event.getInventory().getFirstItem() != null && secondItem != null) {
+	            if (secondItem.getType() == Material.ENCHANTED_BOOK) {
+	                EnchantmentStorageMeta bookmeta = (EnchantmentStorageMeta) secondItem.getItemMeta();
+	                if (bookmeta.hasStoredEnchant(Enchantment.SWEEPING_EDGE) && bookmeta.getStoredEnchants().size() == 1) {
+	                	// will overwrite any existing lore.
+	                    List<Component> loreList = new ArrayList<>();
+	                    loreList.add(Component.text("modifiedanvilbook"));
+	                    bookmeta.lore(loreList);
+	                    bookmeta.addStoredEnchant(Enchantment.DURABILITY, 1, false);
+	                    secondItem.setItemMeta(bookmeta);
+	                    event.getInventory().setSecondItem(secondItem);
+	                }
+	            }
+	        }
+	    }
     }
 }

@@ -17,7 +17,7 @@ public final class GeyserParity extends JavaPlugin {
     public void onEnable() {
         final HoconConfigurationLoader loader = HoconConfigurationLoader.builder()
                 .path(getDataFolder().toPath().resolve("geyserparity.conf"))
-                .defaultOptions(opts -> opts.header("Geyser "))
+                .defaultOptions(opts -> opts.header("Geyser Parity"))
                 .build();
 
         final GeyserParityConfiguration config;
@@ -40,19 +40,27 @@ public final class GeyserParity extends JavaPlugin {
 				Class.forName("org.geysermc.geyser.GeyserImpl");
 				playerChecker = uuid -> GeyserImpl.getInstance().connectionByUuid(uuid) != null;
 			} catch (ClassNotFoundException e2) {
-				getLogger().warning("Could not find Geyser or Floodgate; sweeping edge fix will not be applied.");
+				getLogger().warning("Could not find Geyser or Floodgate; Geyser Parity fixes will not be enabled.");
 				playerChecker = null;
 			}
 		}
 		if (playerChecker != null) {
-			if (config.sweepingEdgeFix()) {
-				Bukkit.getPluginManager().registerEvents(new SweepingEdgeFix(this), this);
-				getLogger().info("Sweeping Edge fix enabled.");
+			if (config.sweepingEdgeLore()) 
+			{
+				Bukkit.getPluginManager().registerEvents(new SweepingEdgeFix(this,config.sweepingEdgeAnvilBookFix()), this);
+				getLogger().info("Sweeping Edge Lore is enabled.");
+				if(config.sweepingEdgeAnvilBookFix())
+					getLogger().info("Sweeping Edge Book Fix in Anvil is enabled.");
+				else
+					getLogger().info("Sweeping Edge Book Fix in Anvil is disabled.");
 			}
-			if (config.bannerOnShieldFix()) {
-				//Bukkit.getPluginManager().registerEvents(new BannerShieldFix(this), this);
-				getLogger().info("Banner Shields fix enabled.");
-			}
+			else getLogger().info("Sweeping Edge Fixes are is disabled.");
+			/*
+			 * if (config.bannerDetachFromShield()) {
+			 * Bukkit.getPluginManager().registerEvents(new BannerDetachFromShield(this),
+			 * this); getLogger().info("Banner detach from Shield Feature is enabled."); }
+			 * else getLogger().info("Banner detach from Shield Feature is disabled.");
+			 */
 		}
 	}
 }

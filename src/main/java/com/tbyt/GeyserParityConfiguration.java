@@ -4,21 +4,27 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 @ConfigSerializable
-@SuppressWarnings("FieldMayBeFinal")
 public final class GeyserParityConfiguration {
-	@Comment("Fixes Bedrock players being unable to see the enchant description 'sweeping edge' of any item.\n"
-			+ "For Bedrock Players, this adds the sweeping edge level to the lore of the item. "
-			+ "Also sweeping edge now works in the anvil because this fix adds unbreaking 1 to the 2nd slot in the anvil if that slot contains a sweeping edge only book.")
-	private boolean sweepingEdgeFix = true;
+	@Comment("\nFixes Bedrock players being unable to see the enchant description 'sweeping edge' of any item.\n"
+			+ "For Bedrock Players, this adds the sweeping edge level to the lore of the item."
+			+ "\nThis setting does not add any enchants.")
+	private boolean sweepingEdgeLore = true;
 	
-	@Comment("\nCosmetically display banners on shields?")
-	private boolean bannerOnShieldFix = true;
+	@Comment("\nFor Bedrock Players, This fix adds unbreaking 1 to a sweeping edge only book if it is found in the second slot of the anvil."
+			+ "\nSweeping Edge Lore setting must be true for this to work.")
+	private boolean sweepingEdgeAnvilBookFix = true;
+	
+	//private boolean bannerDetachFromShield = true;
 
-	public boolean sweepingEdgeFix() {
-		return sweepingEdgeFix;
+	public boolean sweepingEdgeLore() {
+		return sweepingEdgeLore;
 	}
 	
-	public boolean bannerOnShieldFix() {
-		return bannerOnShieldFix;
+	public boolean sweepingEdgeAnvilBookFix() {
+		return sweepingEdgeAnvilBookFix;
 	}
+	
+	/*
+	 * public boolean bannerDetachFromShield() { return bannerDetachFromShield; }
+	 */
 }
