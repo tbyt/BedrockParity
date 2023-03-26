@@ -14,4 +14,4 @@ Sweeping edge now works in the anvil because this fix adds unbreaking 1 to the s
 - -
 
 # Disclaimer: 
-This Repository used https://github.com/GeyserMC/Hurricane as a base to contribute my fixes; ie sweeping edge. I recommend using this plugin as well.
+This Repository used https://github.com/GeyserMC/Hurricane as a base to contribute my fixes; ie sweeping edge. But understandably, my pull request was denied for it. I recommend using this plugin as well.
