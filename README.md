@@ -9,7 +9,7 @@ Sweeping edge now works in the anvil because this fix adds unbreaking 1 to the s
 
 # Outdated Solutions:
 - Fixed https://github.com/GeyserMC/Geyser/issues/1741 by adding the sweeping edge level to the lore of the item. 
-- - This https://github.com/GeyserMC/Geyser/pull/3615 fixed this issue and implements it better than I did.
+- - This https://github.com/GeyserMC/Geyser/commit/7474d2c74565823842dbc251f75736bdbd4119ef fixed this issue and implements it better than I did.
 -
 - -
 
