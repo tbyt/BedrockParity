@@ -26,7 +26,7 @@ jobs:
         run: mvn -B package -T 2C
 
         #Using this to delete releases that only have the tag "release" when maven build is successful
-      - uses: dev-drprasad/delete-tag-and-release@v0.2.0
+      - uses: dev-drprasad/delete-tag-and-release@v0.2.1
         with:
           tag_name: release #(required) tag name to delete 
           delete_release: true #(optional) default: true 
