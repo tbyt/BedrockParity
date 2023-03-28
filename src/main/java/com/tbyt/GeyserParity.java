@@ -45,22 +45,14 @@ public final class GeyserParity extends JavaPlugin {
 			}
 		}
 		if (playerChecker != null) {
-			if (config.sweepingEdgeLore()) 
+			if (config.sweepingEdgeBookAnvilFix()) 
 			{
-				Bukkit.getPluginManager().registerEvents(new SweepingEdgeFix(this,config.sweepingEdgeAnvilBookFix()), this);
-				getLogger().info("Sweeping Edge Lore is enabled.");
-				if(config.sweepingEdgeAnvilBookFix())
-					getLogger().info("Sweeping Edge Book Fix in Anvil is enabled.");
-				else
-					getLogger().info("Sweeping Edge Book Fix in Anvil is disabled.");
+				Bukkit.getPluginManager().registerEvents(new SweepingEdgeFix(this,config.sweepingEdgeBookAnvilFix()), this);
+				getLogger().info("Sweeping Edge Book Fix in Anvil is enabled.");
 			}
-			else getLogger().info("Sweeping Edge Fixes are is disabled.");
-			/*
-			 * if (config.bannerDetachFromShield()) {
-			 * Bukkit.getPluginManager().registerEvents(new BannerDetachFromShield(this),
-			 * this); getLogger().info("Banner detach from Shield Feature is enabled."); }
-			 * else getLogger().info("Banner detach from Shield Feature is disabled.");
-			 */
+			else
+				getLogger().info("Sweeping Edge Book Fix in Anvil is disabled.");
+			//next if statement block for config of new feature can go here.
 		}
 	}
 }
