@@ -28,7 +28,7 @@ jobs:
         #Using this to delete releases that only have the tag "release" when maven build is successful
       - uses: dev-drprasad/delete-tag-and-release@v0.2.1
         with:
-          tag_name: release #(required) tag name to delete 
+          tag_name: pre-release #(required) tag name to delete 
           delete_release: true #(optional) default: true 
           #repo: <owner>/<repoName> #(optional) target repository. default: repo running this action
         env:
@@ -41,8 +41,8 @@ jobs:
           allowUpdates: true
           bodyFile: "README.md"
           draft: false
-          prerelease: false
-          tag: "release"
+          prerelease: true
+          tag: "pre-release"
           token: ${{ secrets.GITHUB_TOKEN }}
 
 #    - name: Release
