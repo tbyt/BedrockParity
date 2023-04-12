@@ -4,7 +4,7 @@ Developing based off my personal needs. Please go ahead and fork to contribute t
 
 
 # Parity Fixes:
-Sweeping edge now works in the anvil because this fix adds unbreaking 1 to the second slot in the anvil if that slot contains a sweeping edge only book.
+Sweeping edge now works in the anvil because this fix adds unbreaking 1 to the second slot in the anvil if that slot contains a sweeping edge book.
 
 
 # Outdated Solutions:
