@@ -7,7 +7,7 @@ Developing based off my personal needs. Please go ahead and fork to contribute t
 Sweeping edge now works in the anvil because this fix adds unbreaking 1 to the second slot in the anvil if that slot contains a sweeping edge book.
 
 
-# Outdated Solutions:
+# List of Solutions that made it to Geyser:
 - Fixed https://github.com/GeyserMC/Geyser/issues/1741 by adding the sweeping edge level to the lore of the item. 
 - - This https://github.com/GeyserMC/Geyser/commit/7474d2c74565823842dbc251f75736bdbd4119ef fixes this issue now and implements it better than I did.
 -
