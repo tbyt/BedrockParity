@@ -27,10 +27,10 @@ public final class SweepingEdgeFix implements Listener {
     }
 
     /*
-     * TBYT adds Sweeping Edge fix. This will update lore to sweeping edge and the
-     * enchantment level. (Jens helped with Lore). Unbreaking 1 may be applied to
+     * TBYT adds Sweeping Edge fix. Unbreaking 1 may be applied to
      * the Anvil Result in the event of a sweeping edge only book in the 2nd anvil
      * slot.
+     * Jens helped with Lore before Chris implemented fix to GeyserMC, it is longer needed in GeyserParity.
      */
     @EventHandler
     public void findEnchant(InventoryClickEvent event) {
@@ -60,58 +60,6 @@ public final class SweepingEdgeFix implements Listener {
                 event.setCurrentItem(item);
             }
         }
-        //else if(item.getType().toString().indexOf("SWORD")!=-1)
-//        else if (item.hasItemMeta())
-//        {
-//        	  //player.getServer().broadcastMessage(String.valueOf(item.getItemMeta().hasItemFlag(ItemFlag.HIDE_DYE)));
-//              ItemMeta meta = item.getItemMeta();
-//              if (meta.hasEnchant(Enchantment.SWEEPING_EDGE) && meta.hasItemFlag(ItemFlag.HIDE_DYE) && meta.hasEnchant(Enchantment.DURABILITY))
-//              {
-//            	  meta.removeEnchant(Enchantment.DURABILITY);
-//                  meta.removeItemFlags(ItemFlag.HIDE_DYE);
-//                  item.setItemMeta(meta);
-//                  event.setCurrentItem(item);
-//              }
-//        }
-        
-        //redact
-//        if (event.getClickedInventory().getType() == InventoryType.PLAYER) {
-//            item = event.getCurrentItem();
-//
-//            if (item == null) {
-//                return;
-//            }
-//
-//            if (item.getType().equals(Material.ENCHANTED_BOOK)) {
-//                EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-//                if (meta.hasStoredEnchant(Enchantment.SWEEPING_EDGE)) {
-//                    int sweepingLevel = meta.getStoredEnchantLevel(Enchantment.SWEEPING_EDGE);
-//                    // will overwrite any existing lore.
-//                    List<Component> loreList = new ArrayList<>(); 
-//                    loreList.add(Component.text("Sweeping Edge " + sweepingLevel));
-//                    meta.lore(loreList);
-//                } else {
-//                    meta.lore(new ArrayList<>());
-//                }
-//
-//                item.setItemMeta(meta);
-//                event.setCurrentItem(item);
-//            } else if (item.hasItemMeta()) {
-//                ItemMeta meta = item.getItemMeta();
-//                if (meta.hasEnchant(Enchantment.SWEEPING_EDGE)) {
-//                    int sweepingLevel = meta.getEnchantLevel(Enchantment.SWEEPING_EDGE);
-//                    // will overwrite any existing lore.
-//                    List<Component> loreList = new ArrayList<>();
-//                    loreList.add(Component.text("Sweeping Edge " + sweepingLevel));
-//                    meta.lore(loreList);
-//                } else {
-//                    meta.lore(new ArrayList<>());
-//                }
-//
-//                item.setItemMeta(meta);
-//                event.setCurrentItem(item);
-//            }
-//        }
     }
 
     /*
