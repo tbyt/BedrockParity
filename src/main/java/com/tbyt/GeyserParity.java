@@ -47,7 +47,7 @@ public final class GeyserParity extends JavaPlugin {
 		if (playerChecker != null) {
 			if (config.sweepingEdgeBookAnvilFix()) 
 			{
-				Bukkit.getPluginManager().registerEvents(new SweepingEdgeFix(this,config.sweepingEdgeBookAnvilFix()), this);
+				Bukkit.getPluginManager().registerEvents(new SweepingEdgeFix(this), this);
 				getLogger().info("Sweeping Edge Book Fix in Anvil is enabled.");
 			}
 			else

@@ -15,11 +15,9 @@ import org.geysermc.floodgate.api.FloodgateApi;
 
 public final class SweepingEdgeFix implements Listener {
     private final Plugin plugin;
-    private final Boolean anvilBookFix;
 
-    public SweepingEdgeFix(Plugin plugin, Boolean anvilBookFix) {
+    public SweepingEdgeFix(Plugin plugin) {
         this.plugin = plugin;
-        this.anvilBookFix = anvilBookFix;
     }
 
     /*
@@ -66,28 +64,25 @@ public final class SweepingEdgeFix implements Listener {
     @EventHandler
     public void onPrepareAnvil(PrepareAnvilEvent event) 
     {
-    	//If they enabled this fix in the config.
-    	if(anvilBookFix)
-    	{
-	        Player player = (Player) event.getViewers().get(0);
-	        if (!FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId())) {
-	            return;
-	        }
-	        
-	        ItemStack secondItem = event.getInventory().getSecondItem();
-	        if (event.getInventory().getFirstItem() != null && secondItem != null) {
-	            if (secondItem.getType() == Material.ENCHANTED_BOOK) {
-	                EnchantmentStorageMeta bookMeta = (EnchantmentStorageMeta) secondItem.getItemMeta();
-	                //If the enchanted book has another enchant than sweeping edge, you would not need this fix.
-	                if (bookMeta.hasStoredEnchant(Enchantment.SWEEPING_EDGE) && bookMeta.getStoredEnchants().size() == 1) {
-	                	//
-	                	bookMeta.addItemFlags(ItemFlag.HIDE_DYE);
-	                    bookMeta.addStoredEnchant(Enchantment.DURABILITY, 1, false);
-	                    secondItem.setItemMeta(bookMeta);
-	                    event.getInventory().setSecondItem(secondItem);
-	                }
-	            }
-	        }
-	    }
+    	Player player = (Player) event.getViewers().get(0);
+    	if (!FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId())) {
+    		return;
+    	}
+
+    	ItemStack secondItem = event.getInventory().getSecondItem();
+    	if (event.getInventory().getFirstItem() != null && secondItem != null) {
+    		if (secondItem.getType() == Material.ENCHANTED_BOOK) {
+    			EnchantmentStorageMeta bookMeta = (EnchantmentStorageMeta) secondItem.getItemMeta();
+    			//If the enchanted book has another enchant than sweeping edge, you would not need this fix.
+    			if (bookMeta.hasStoredEnchant(Enchantment.SWEEPING_EDGE) && bookMeta.getStoredEnchants().size() == 1) {
+    				//
+    				bookMeta.addItemFlags(ItemFlag.HIDE_DYE);
+    				bookMeta.addStoredEnchant(Enchantment.DURABILITY, 1, false);
+    				secondItem.setItemMeta(bookMeta);
+    				event.getInventory().setSecondItem(secondItem);
+    			}
+    		}
+    	}
+
     }
 }
