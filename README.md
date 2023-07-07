@@ -5,6 +5,7 @@ Developing based off my personal needs. Please go ahead and fork to contribute t
 
 # Parity Fixes:
 Sweeping edge now works in the anvil because this fix adds unbreaking 1 to the second slot in the anvil if that slot contains a sweeping edge book.
+For Geyser Bedrock Players connecting with ViaVersion, There is now an option to enable the full functionality of the Smithing Table for these players. Previously without this fix, a client limitation is present where a bedrock player is presented a Furnace GUI but cannot put the netherite ingot in the fuel slot. This fix makes that possible.
 
 
 # List of Solutions that made it to Geyser:
