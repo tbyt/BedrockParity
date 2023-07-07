@@ -1,5 +1,5 @@
 # Geyser Parity
-Spigot Plugin for GeyserMC Servers that bridges the Parity between bedrock and java exclusive features.
+My Third Party Spigot Plugin for GeyserMC Servers that bridges the Parity between bedrock and java exclusive features.
 Developing based off my personal needs. Please go ahead and fork to contribute to bring parity between the platforms.
 
 
