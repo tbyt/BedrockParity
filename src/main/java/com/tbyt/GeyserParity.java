@@ -44,6 +44,8 @@ public final class GeyserParity extends JavaPlugin {
 				playerChecker = null;
 			}
 		}
+		String MinecraftVersion = Bukkit.getMinecraftVersion();
+		
 		if (playerChecker != null) {
 			if (config.sweepingEdgeBookAnvilFix()) 
 			{
@@ -52,7 +54,23 @@ public final class GeyserParity extends JavaPlugin {
 			}
 			else
 				getLogger().info("Sweeping Edge Book Fix in Anvil is disabled.");
-			//next if statement block for config of new feature can go here.
+			
+			// to understand this If Block as a non-programmer, reference: https://www.javatpoint.com/java-string-charat
+			// "Successful if server is between 1.10 and up to 1.19.4. As long as it is before 1.20."
+			if(MinecraftVersion.charAt(0)=='1'&&MinecraftVersion.charAt(2)=='1'&&MinecraftVersion.charAt(4)=='.')
+			{
+				if (config.viaVersionLegacySmithing()) 
+				{
+					Bukkit.getPluginManager().registerEvents(new ViaVersionLegacySmithing(this), this);
+					getLogger().info("ViaVersion Legacy Smithing is enabled.");
+				}
+				else
+					getLogger().info("ViaVersion Legacy Smithing is disabled.");
+			}
+			else
+			{
+				getLogger().info("ViaVersion Legacy Smithing Disabled. Reason: Minecraft Server Version is not between 1.10 and 1.19.4 to apply this.");
+			}
 		}
 	}
 }
