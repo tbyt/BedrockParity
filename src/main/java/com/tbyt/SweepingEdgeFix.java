@@ -45,10 +45,10 @@ public final class SweepingEdgeFix implements Listener {
         
         if (item.getType().equals(Material.ENCHANTED_BOOK)) {
             EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
-            if (meta.hasStoredEnchant(Enchantment.SWEEPING_EDGE) && meta.hasItemFlag(ItemFlag.HIDE_DYE) && meta.hasStoredEnchant(Enchantment.DURABILITY)) {
+            if (meta.hasStoredEnchant(Enchantment.SWEEPING_EDGE) && meta.hasStoredEnchant(Enchantment.DURABILITY) && meta.hasItemFlag(ItemFlag.HIDE_PLACED_ON)) {
                
                 meta.removeStoredEnchant(Enchantment.DURABILITY);
-                meta.removeItemFlags(ItemFlag.HIDE_DYE);
+                meta.removeItemFlags(ItemFlag.HIDE_PLACED_ON);
                 item.setItemMeta(meta);
                 event.setCurrentItem(item);
             }
@@ -68,17 +68,17 @@ public final class SweepingEdgeFix implements Listener {
     		return;
     	}
 
-    	ItemStack secondItem = event.getInventory().getSecondItem();
-    	if (event.getInventory().getFirstItem() != null && secondItem != null) {
+    	ItemStack secondItem = event.getInventory().getItem(1);
+    	if (event.getInventory().getItem(0) != null && secondItem != null) {
     		if (secondItem.getType() == Material.ENCHANTED_BOOK) {
     			EnchantmentStorageMeta bookMeta = (EnchantmentStorageMeta) secondItem.getItemMeta();
     			//If the enchanted book has another enchant than sweeping edge, you would not need this fix.
     			if (bookMeta.hasStoredEnchant(Enchantment.SWEEPING_EDGE) && bookMeta.getStoredEnchants().size() == 1) {
     				//
-    				bookMeta.addItemFlags(ItemFlag.HIDE_DYE);
+    				bookMeta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
     				bookMeta.addStoredEnchant(Enchantment.DURABILITY, 1, false);
     				secondItem.setItemMeta(bookMeta);
-    				event.getInventory().setSecondItem(secondItem);
+    				event.getInventory().setItem(1,secondItem);
     			}
     		}
     	}

@@ -1,6 +1,6 @@
 name: BedrockParity
 version: ${project.version}
 main: com.tbyt.BedrockParity
-api-version: 1.19
+api-version: 1.13
 authors: [ TBYT ]
 softdepend: [Geyser-Spigot, floodgate]
