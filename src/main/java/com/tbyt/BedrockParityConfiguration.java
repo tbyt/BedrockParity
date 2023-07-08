@@ -10,7 +10,7 @@ public final class BedrockParityConfiguration {
 			+ "\nDefault: true")
 	private boolean sweepingEdgeBookAnvilFix = true;
 	
-	@Comment("\nFor Geyser Servers running before 1.20. This fixes the smithing table for ViaVersion Bedrock Players."
+	@Comment("\nAllows Bedrock (Geyser) 1.20+ players to use smithing tables on 1.16.1-1.19.4 servers assuming ViaVersion is present."
 			+ "\nPreviously without this fix, a client limitation is present where a bedrock player is presented a Furnace GUI but cannot put the netherite ingot in the fuel slot."
 			+ "\nDefault: false")
 	private boolean viaVersionLegacySmithing = false;
