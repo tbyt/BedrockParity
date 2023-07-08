@@ -24,7 +24,6 @@ public final class SweepingEdgeFix implements Listener {
      * TBYT adds Sweeping Edge fix. Unbreaking 1 may be applied to
      * the Anvil Result in the event of a sweeping edge only book in the 2nd anvil
      * slot.
-     * Jens helped with Lore before Chris implemented fix to GeyserMC, it is longer needed in GeyserParity.
      */
     @EventHandler
     public void findEnchant(InventoryClickEvent event) {

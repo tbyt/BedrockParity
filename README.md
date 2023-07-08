@@ -1,8 +1,8 @@
-# Geyser Parity
-A Third Party Spigot Plugin for GeyserMC Servers that bridges the Parity between bedrock and java exclusive features.
+# Bedrock Parity for GeyserMC
+A Third-Party Bukkit Plugin for GeyserMC Servers that bridges the Parity between bedrock and java exclusive features.
 Developing based off my personal needs. Please go ahead and fork to contribute to bring parity between the platforms.
 
-If any problems arise while trying to enable plugin, please compare your config file (.conf) with [Config](https://github.com/TBYT/GeyserParity/blob/master/src/main/java/com/tbyt/GeyserParityConfiguration.java).
+If any problems arise while trying to enable plugin, please compare your config file (.conf) with [Config](https://github.com/TBYT/BedrockParity/blob/master/src/main/java/com/tbyt/BedrockParityConfiguration.java).
 
 # Parity Fixes:
 - Sweeping edge now works in the anvil because this fix adds unbreaking 1 to the second slot in the anvil if that slot contains a sweeping edge book.

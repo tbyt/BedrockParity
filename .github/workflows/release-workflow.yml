@@ -1,4 +1,4 @@
-name: Release Geyserparity
+name: Release Bedrockparity
 # workflow by TBYT.
 on: [pull_request, push]
 
@@ -37,16 +37,10 @@ jobs:
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: target/GeyserParity.jar
+          artifacts: target/BedrockParity.jar
           allowUpdates: true
           bodyFile: "README.md"
           draft: false
           prerelease: true
           tag: "pre-release"
           token: ${{ secrets.GITHUB_TOKEN }}
-
-#    - name: Release
-#       uses: softprops/action-gh-release@v1
-#       if: startsWith(github.ref, 'refs/tags/')
-#       with:
-#         files: spigot/target/GeyserHacks.jar

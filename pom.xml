@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.tbyt</groupId>
-    <artifactId>geyserparity</artifactId>
+    <artifactId>bedrockparity</artifactId>
     <version>1</version>
 
     <properties>
@@ -14,7 +14,7 @@
     </properties>
 
     <build>
-        <finalName>GeyserParity</finalName>
+        <finalName>BedrockParity</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -40,15 +40,15 @@
                             <relocations>
                                 <relocation>
                                     <pattern>org.spongepowered.configurate</pattern>
-                                    <shadedPattern>geyserparity.relocations.configurate</shadedPattern>
+                                    <shadedPattern>bedrockparity.relocations.configurate</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>io.leangen.geantyref</pattern>
-                                    <shadedPattern>geyserparity.relocations.geantyref</shadedPattern>
+                                    <shadedPattern>bedrockparity.relocations.geantyref</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.typesafe.config</pattern>
-                                    <shadedPattern>geyserparity.relocations.typesafeconfig</shadedPattern>
+                                    <shadedPattern>bedrockparity.relocations.typesafeconfig</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
