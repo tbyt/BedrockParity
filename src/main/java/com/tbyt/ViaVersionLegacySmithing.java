@@ -27,14 +27,17 @@ public final class ViaVersionLegacySmithing implements Listener {
     		return;
     	}
 
-    	if (event.getInventory().getInputEquipment() != null && event.getInventory().getInputMineral() == null) 
+    	//slot 0 is the InputEquipment, slot 1 is the InputMineral. Friendly for older server versions.
+    	ItemStack slot1 = event.getInventory().getItem(0);
+    	ItemStack slot2 = event.getInventory().getItem(1);
+    	if (slot1 != null && slot2==null)
     	{
-    		ItemStack netherite_ingot = new ItemStack(Material.NETHERITE_INGOT,1);
-    		if(player.getInventory().contains(Material.NETHERITE_INGOT))
-    		{
-    			player.getInventory().removeItem(netherite_ingot);
-    			event.getInventory().setInputMineral(netherite_ingot);
-    		}
+    		if (slot1.getType().equals(Material.NETHERITE_INGOT))
+            {
+    			event.getInventory().setItem(0,null);
+    			event.getInventory().setItem(1,slot1);
+    			return;
+            }
     	}
     }
 }
