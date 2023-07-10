@@ -24,6 +24,8 @@ public final class SweepingEdgeFix implements Listener {
      * TBYT adds Sweeping Edge fix. Unbreaking 1 may be applied to
      * the Anvil Result in the event of a sweeping edge only book in the 2nd anvil
      * slot.
+     * 
+     * Minecraft Version 1.11.1 - latest
      */
     @EventHandler
     public void findEnchant(InventoryClickEvent event) {
@@ -82,6 +84,5 @@ public final class SweepingEdgeFix implements Listener {
     			}
     		}
     	}
-
     }
 }

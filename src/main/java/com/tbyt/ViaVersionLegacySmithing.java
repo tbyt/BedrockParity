@@ -18,6 +18,8 @@ public final class ViaVersionLegacySmithing implements Listener {
 
     /*
      * Made by TBYT
+     * 
+     *  Minecraft Version 1.16.1 - 1.19.4
      */
     @EventHandler
     public void onPrepareSmithing(PrepareSmithingEvent event)
@@ -34,6 +36,7 @@ public final class ViaVersionLegacySmithing implements Listener {
     	{
     		if (slot1.getType().equals(Material.NETHERITE_INGOT))
             {
+    			// Swap Slots.
     			event.getInventory().setItem(0,null);
     			event.getInventory().setItem(1,slot1);
     			return;
