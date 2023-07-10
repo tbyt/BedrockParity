@@ -15,7 +15,7 @@ If any problems arise while trying to enable plugin, please compare your config 
 
 # List of Solutions that made it to Geyser:
 - Fixed https://github.com/GeyserMC/Geyser/issues/1741 by adding the sweeping edge level to the lore of the item. 
-- - This [commit](https://github.com/GeyserMC/Geyser/commit/7474d2c74565823842dbc251f75736bdbd4119ef) fixes this issue now and implements it better than I did.
+- - This [commit](https://github.com/GeyserMC/Geyser/commit/7474d2c74565823842dbc251f75736bdbd4119ef) fixes this issue and implements it better [than when I did.](https://github.com/TBYT/BedrockParity/blob/a76b40297fac529aa9609554caf91e88ff3bf078/src/main/java/com/tbyt/SweepingEdgeFix.java)
 -
 - -
 
