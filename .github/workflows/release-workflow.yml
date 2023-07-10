@@ -40,7 +40,7 @@ jobs:
           artifacts: target/BedrockParity.jar
           allowUpdates: true
           bodyFile: "README.md"
-          draft: false
+          draft: true
           prerelease: true
           tag: "pre-release"
           token: ${{ secrets.GITHUB_TOKEN }}
