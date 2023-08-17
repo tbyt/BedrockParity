@@ -9,16 +9,12 @@ If any problems arise while trying to enable plugin, please compare your config 
 - Sweeping edge now works in the anvil because this fix adds unbreaking 1 to the second slot in the anvil if that slot contains a sweeping edge book.
 - - Minecraft Server Versions 1.11.1 - latest
 - - Fixes https://github.com/GeyserMC/Geyser/issues/3661
-- For Geyser Bedrock Players connecting with ViaVersion, There is now an option to enable the full functionality of the Smithing Table for these players. Previously without this fix, a client limitation is present where a bedrock player is presented a Furnace GUI but cannot put the netherite ingot in the fuel slot. This fix makes that possible.
-- - Minecraft Server Versions 1.16.1 - 1.19.4
-- - Fixes https://github.com/GeyserMC/Geyser/issues/3866, https://github.com/ViaVersion/ViaVersion/issues/3358, 
 
-
-# List of Solutions that made it to Geyser:
-- Fixed https://github.com/GeyserMC/Geyser/issues/1741 by adding the sweeping edge level to the lore of the item. 
+# List of Parities Geyser implemented afterwards:
+- I fixed https://github.com/GeyserMC/Geyser/issues/1741 by adding the sweeping edge level to the lore of the item. 
 - - This [commit](https://github.com/GeyserMC/Geyser/commit/7474d2c74565823842dbc251f75736bdbd4119ef) fixes this issue and implements it better [than when I did.](https://github.com/TBYT/BedrockParity/blob/a76b40297fac529aa9609554caf91e88ff3bf078/src/main/java/com/tbyt/SweepingEdgeFix.java)
--
-- -
+- I fixed https://github.com/GeyserMC/Geyser/issues/3866 and https://github.com/ViaVersion/ViaVersion/issues/3358 by having the 1st slot forwarded to the 2nd slot if it is a netherite ingot.
+- - This [commit](https://github.com/GeyserMC/Geyser/commit/706d1b96270df004b8dda74f0611e28d689747ff) fixes this issue and implements it better [than when I did.](https://github.com/TBYT/BedrockParity/blob/4ed46cac4972ce4e296d60b391889912cc292f6c/src/main/java/com/tbyt/ViaVersionLegacySmithing.java)
 
 # Disclaimer: 
-This Repository used [Geyser Hurricane](https://github.com/GeyserMC/Hurricane) as a base to contribute my fixes; ie sweeping edge. But understandably, my pull request was denied for it. I recommend using this plugin as well.
+This Repository used [Geyser Hurricane](https://github.com/GeyserMC/Hurricane) as a base to contribute my fixes; ie sweeping edge. But understandably, my pull request was denied for it. I recommend using this plugin as well for its collision fixes.
