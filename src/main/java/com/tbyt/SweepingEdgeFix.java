@@ -13,7 +13,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.geysermc.floodgate.api.FloodgateApi;
 
-public final class SweepingEdgeFix implements Listener {
+public class SweepingEdgeFix implements Listener {
     private final Plugin plugin;
 
     public SweepingEdgeFix(Plugin plugin) {
@@ -31,18 +31,15 @@ public final class SweepingEdgeFix implements Listener {
     public void findEnchant(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
 
-        if (!FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId())) {
+        if (!FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId()))
             return;
-        }
         
-        if (event.getClickedInventory() == null) {
+        if (event.getClickedInventory() == null)
             return;
-        }
 
         ItemStack item = event.getCurrentItem();
-        if (item == null) {
+        if (item == null)
             return;
-        }
         // all players must be checked for modifiedanvilbook tag, even if AnvilBookFix is disabled.
         
         if (item.getType().equals(Material.ENCHANTED_BOOK)) {
@@ -66,9 +63,8 @@ public final class SweepingEdgeFix implements Listener {
     public void onPrepareAnvil(PrepareAnvilEvent event) 
     {
     	Player player = (Player) event.getViewers().get(0);
-    	if (!FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId())) {
+    	if (!FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId()))
     		return;
-    	}
 
     	ItemStack secondItem = event.getInventory().getItem(1);
     	if (event.getInventory().getItem(0) != null && secondItem != null) {

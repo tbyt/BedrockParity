@@ -9,10 +9,11 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.event.inventory.PrepareSmithingEvent;
 import org.geysermc.floodgate.api.FloodgateApi;
 
-public final class ViaVersionLegacySmithing implements Listener {
+//Deprecated for now but can be useful for future minecraft updates when a fix is not readily available.
+public class ViaVersionClientGuiFix implements Listener {
     private final Plugin plugin;
 
-    public ViaVersionLegacySmithing(Plugin plugin) {
+    public ViaVersionClientGuiFix(Plugin plugin) {
         this.plugin = plugin;
     }
 
@@ -22,7 +23,7 @@ public final class ViaVersionLegacySmithing implements Listener {
      *  Minecraft Version 1.16.1 - 1.19.4
      */
     @EventHandler
-    public void onPrepareSmithing(PrepareSmithingEvent event)
+    public void onPrepareSmithing(PrepareSmithingEvent event) //the inventory for the fix
     {
     	Player player = (Player) event.getViewers().get(0);
     	if (!FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId())) {
@@ -34,6 +35,7 @@ public final class ViaVersionLegacySmithing implements Listener {
     	ItemStack slot2 = event.getInventory().getItem(1);
     	if (slot1 != null && slot2==null)
     	{
+    		//use first slot to put desired item into second slot.
     		if (slot1.getType().equals(Material.NETHERITE_INGOT))
             {
     			// Swap Slots.

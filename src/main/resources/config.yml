@@ -1,0 +1,12 @@
+# Bedrock Parity for GeyserMC Floodgate
+
+# Give the option for Bedrock Players to see the Dragon Head Mouth Animation and the Piglin Head Ear Animation when they are powered by redstone.
+# Which currently does not show on Geyser-Based Servers. This is only for Vanilla Minecraft Heads like the ones listed above.
+# We are using a radius in blocks around the player to activate the animation for these heads.
+# Default: 12
+# 0 = off.
+animate-head-blocks-distance: 12
+
+# For Geyser Bedrock Players, This fix adds Unbreaking 1 to a sweeping edge only book if it is found in the second slot of the Anvil.
+# Default: true
+sweeping-edge-book-anvil-fix: true
