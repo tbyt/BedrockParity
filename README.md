@@ -9,6 +9,9 @@ If any problems arise while trying to enable plugin, please compare your config 
 - Sweeping edge now works in the anvil because this fix adds unbreaking 1 to the second slot in the anvil if that slot contains a sweeping edge book.
 - - Minecraft Server Versions 1.11.1 - latest
 - - Fixes https://github.com/GeyserMC/Geyser/issues/3661
+- Bedrock Players can now see the Dragon Head Mouth Animation and the Piglin Head Ear Animation when they are powered by redstone.
+- Minecraft Server Versions 1.9 - latest
+- - Fixes https://github.com/GeyserMC/Geyser/issues/1764
 
 # List of Parities Geyser implemented afterwards:
 - I fixed https://github.com/GeyserMC/Geyser/issues/1741 by adding the sweeping edge level to the lore of the item. 
