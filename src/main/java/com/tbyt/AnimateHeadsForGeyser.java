@@ -36,7 +36,7 @@ public class AnimateHeadsForGeyser implements Listener {
 	private ArrayList<Location> animatedHeads = new ArrayList<Location>();
 	private int radius;
 
-	public AnimateHeadsForGeyser(Plugin plugin, int animateHeadBlockDistance, int serverRenderDistance) {
+	public AnimateHeadsForGeyser(Plugin plugin, int animateHeadBlockDistance) {
 		this.plugin = plugin;
 		radius = animateHeadBlockDistance;
 	}

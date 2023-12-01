@@ -47,7 +47,7 @@ public class BedrockParity extends JavaPlugin {
 			{
 				getLogger().info("Animating Heads for Bedrock Players is enabled.");
 				int animateHeadBlockDistance = this.getConfig().getInt("animate-head-blocks-distance");
-				AnimateHeadsForGeyser animateHeadsForGeyser = new AnimateHeadsForGeyser(this, animateHeadBlockDistance, Bukkit.getViewDistance());
+				AnimateHeadsForGeyser animateHeadsForGeyser = new AnimateHeadsForGeyser(this, animateHeadBlockDistance);
 				Bukkit.getPluginManager().registerEvents(animateHeadsForGeyser, this);
 				BukkitScheduler scheduler = getServer().getScheduler();
 			    scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
