@@ -10,7 +10,7 @@ If any problems arise while trying to enable plugin, please compare your config.
 - - Minecraft Server Versions 1.11.1 - latest
 - - Fixes https://github.com/GeyserMC/Geyser/issues/3661
 - Bedrock Players can now see the Dragon Head Mouth Animation and the Piglin Head Ear Animation when they are powered by redstone.
-- - Minecraft Server Versions 1.16.5 - latest (with Geyser-Spigot Plugin)
+- - Minecraft Server Versions 1.16.5 - 1.20.1 (with Geyser-Spigot Plugin)
 - - Fixes https://github.com/GeyserMC/Geyser/issues/1764
 
 # List of Parities Geyser implemented afterwards:
