@@ -4,18 +4,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
-import org.geysermc.floodgate.api.FloodgateApi;
-import org.geysermc.geyser.GeyserImpl;
-import org.geysermc.geyser.api.GeyserApi;
-import org.geysermc.geyser.api.event.EventRegistrar;
-import org.geysermc.geyser.api.event.bedrock.SessionJoinEvent;
-import org.geysermc.api.Geyser;
 import org.geysermc.api.connection.Connection;
-
+import org.geysermc.floodgate.api.FloodgateApi;
 import java.util.UUID;
 import java.util.function.Predicate;
+import org.geysermc.api.Geyser;
+import org.geysermc.geyser.GeyserImpl;
 
-public class BedrockParity extends JavaPlugin implements EventRegistrar {
+public class BedrockParity extends JavaPlugin {
 	private Predicate<UUID> playerChecker;
     @Override
     public void onEnable() {
@@ -49,34 +45,24 @@ public class BedrockParity extends JavaPlugin implements EventRegistrar {
 				getLogger().info("Sweeping Edge Book Fix in Anvil is manually disabled.");
 			if(this.getConfig().getInt("animate-head-blocks-distance")!=0)
 			{
-				//https://wiki.geysermc.org/geyser/events/
-				//commented out because floodgate currently breaks this. Have to manually subscribe instead of using @subscribe
-				//GeyserApi.api().eventBus().register(this, this);
-				GeyserApi.api().eventBus().subscribe(this, SessionJoinEvent.class, this::onGeyserPlayerJoin);
 				getLogger().info("Animating Heads for Bedrock Players is enabled.");
+				int animateHeadBlockDistance = this.getConfig().getInt("animate-head-blocks-distance");
+				AnimateHeadsForGeyser animateHeadsForGeyser = new AnimateHeadsForGeyser(this, animateHeadBlockDistance, Bukkit.getViewDistance());
+				Bukkit.getPluginManager().registerEvents(animateHeadsForGeyser, this);
+				BukkitScheduler scheduler = getServer().getScheduler();
+			    scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
+			            @Override
+			            public void run() {
+			            	//Player player : Bukkit.getOnlinePlayers()
+			                for (Connection playerConn : Geyser.api().onlineConnections()) {
+			                	// Update every 4 ticks
+			                	animateHeadsForGeyser.animateForGeyserPlayer(playerConn);
+			                }
+			            }
+			        }, 0L, 4L);
 			}
 			else
 				getLogger().info("Animating Heads for Bedrock Players is manually disabled.");
 		}
 	}
-    
-    public void onGeyserPlayerJoin(SessionJoinEvent event) {
-    	int animateHeadBlockDistance = this.getConfig().getInt("animate-head-blocks-distance");
-        if((this.getConfig().getInt("animate-head-blocks-distance")!=0) && playerChecker != null)
-		{
-        	AnimateHeadsForGeyser animateHeadsForGeyser = new AnimateHeadsForGeyser(this, animateHeadBlockDistance, Bukkit.getViewDistance());
-			//there are no server events needing to be registered at this time in the AnimateHeadsForGeyser class.
-			Bukkit.getPluginManager().registerEvents(animateHeadsForGeyser, this);
-	        BukkitScheduler scheduler = getServer().getScheduler();
-	        scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
-	            @Override
-	            public void run() {
-	                for (Connection playerConn : Geyser.api().onlineConnections()) {
-						// Update every 4 ticks
-	                	animateHeadsForGeyser.animateForGeyserPlayer(playerConn);
-	                }
-	            }
-	        }, 0L, 4L);
-    	}
-    }
 }

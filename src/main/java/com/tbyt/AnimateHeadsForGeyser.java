@@ -82,8 +82,7 @@ public class AnimateHeadsForGeyser implements Listener {
 			}
 			if (activeHead.getBlock().isBlockPowered())
 				continue;
-			Boolean nearbyRedstoneBlock = findNearbyRedstoneBlock(activeHead);
-			if (!nearbyRedstoneBlock) {
+			if(!activeHead.getBlock().isBlockIndirectlyPowered()) {
 				headsToRemove.add(activeHead);
 				// send deanimate packet
 				switch (currentMaterial) {
@@ -115,8 +114,7 @@ public class AnimateHeadsForGeyser implements Listener {
 					Material materialOfBlock = headBlock.getType();
 					// if Block is actually a dragon or piglin head block.
 					if (IsHead(materialOfBlock)) {
-						Boolean nearbyRedstoneBlock = findNearbyRedstoneBlock(headBlock.getLocation());
-						if (headBlock.isBlockPowered() || nearbyRedstoneBlock) {
+						if (headBlock.isBlockPowered() || headBlock.isBlockIndirectlyPowered()) {
 							if (!headsToAnimate.contains(headBlock.getLocation()))
 								headsToAnimate.add(headBlock.getLocation());
 						}
@@ -151,23 +149,6 @@ public class AnimateHeadsForGeyser implements Listener {
 		}
 	}
 
-	// server does not pick up isBlockPowered if redstone block is powering adjacent
-	// to the head.
-	public boolean findNearbyRedstoneBlock(Location location) {
-		ArrayList<Material> adjacentMaterials = new ArrayList<Material>();
-		adjacentMaterials.add(location.clone().add(-1, 0, 0).getBlock().getType());
-		adjacentMaterials.add(location.clone().add(1, 0, 0).getBlock().getType());
-		adjacentMaterials.add(location.clone().add(0, -1, 0).getBlock().getType());
-		adjacentMaterials.add(location.clone().add(0, 1, 0).getBlock().getType());
-		adjacentMaterials.add(location.clone().add(0, 0, -1).getBlock().getType());
-		adjacentMaterials.add(location.clone().add(0, 0, 1).getBlock().getType());
-		for (Material nearbyBlock : adjacentMaterials) {
-			if (nearbyBlock.equals(Material.REDSTONE_BLOCK))
-				return true;
-		}
-		return false;
-	}
-
 	public boolean IsHead(Material material) {
 		switch (material) {
 		case DRAGON_HEAD:
@@ -184,10 +165,10 @@ public class AnimateHeadsForGeyser implements Listener {
 	}
 
 	// animate or deanimate bedrock animations for vanilla skulls.
-	public void sendAnimatePacket(Connection playerConn, Block head, int HeadType, int AnimationStatus) {
+	public void sendAnimatePacket(Connection playerConn, Block head, int headType, int animationStatus) {
 		NbtMapBuilder builder = NbtMap.builder();
-		builder.putByte("DoingAnimation", (byte) AnimationStatus);
-		builder.putInt("MouthTickCount", AnimationStatus);
+		builder.putByte("DoingAnimation", (byte) animationStatus);
+		builder.putInt("MouthTickCount", animationStatus);
 		// if head is not on a Wall.
 		if (head.getBlockData() instanceof Rotatable) {
 			Rotatable HeadRotation = (Rotatable) head.getBlockData();
@@ -248,7 +229,7 @@ public class AnimateHeadsForGeyser implements Listener {
 			builder.put("Rotation", rotationDegree);
 		} else
 			builder.put("Rotation", 0f);
-		builder.putByte("SkullType", (byte) HeadType);
+		builder.putByte("SkullType", (byte) headType);
 		builder.putString("id", "Skull");
 		builder.putByte("isMovable", (byte) 1);
 		builder.putInt("X", head.getX());
