@@ -1,6 +1,6 @@
 [![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_64h.png)](https://modrinth.com/plugin/bedrockparity/)
 # Bedrock Parity for GeyserMC
-A Third-Party Bukkit Plugin for GeyserMC Servers that bridges the Parity between bedrock and java exclusive features.
+A Third-Party Spigot Plugin for GeyserMC Servers that bridges the Parity between bedrock and java exclusive features.
 Developing based off my personal needs. Please go ahead and fork to contribute to bring parity between the platforms.
 
 If any problems arise while trying to enable plugin, please compare your config.yml file in the BedrockParity folder with [Config](https://github.com/TBYT/BedrockParity/blob/master/src/main/resources/config.yml).
