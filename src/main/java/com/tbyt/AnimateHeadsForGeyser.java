@@ -1,13 +1,6 @@
 package com.tbyt;
 
-//import java.io.ByteArrayOutputStream;
-//import java.io.IOException;
-//import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-//import java.util.Collection;
-//import java.util.Iterator;
-//import java.util.LinkedHashMap;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,18 +12,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.cloudburstmc.math.vector.Vector3i;
 import org.cloudburstmc.nbt.NbtMap;
 import org.cloudburstmc.nbt.NbtMapBuilder;
 import org.cloudburstmc.protocol.bedrock.packet.BedrockPacket;
 import org.cloudburstmc.protocol.bedrock.packet.BlockEntityDataPacket;
 import org.geysermc.api.Geyser;
+import org.geysermc.api.connection.Connection;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.geysermc.geyser.GeyserImpl;
-import org.geysermc.floodgate.api.player.FloodgatePlayer;
-
-//import com.google.gson.Gson;
-//import com.google.gson.JsonElement;
+import org.geysermc.geyser.api.connection.GeyserConnection;
 
 /*
  * Made by TBYT
@@ -43,8 +35,10 @@ public class AnimateHeadsForGeyser implements Listener {
 	private ArrayList<Location> headsToAnimate = new ArrayList<Location>();
 	private ArrayList<Location> animatedHeads = new ArrayList<Location>();
 	private int radius;
+	private GeyserConnection playerConn;
 
-	public AnimateHeadsForGeyser(Plugin plugin, int animateHeadBlockDistance) {
+	public AnimateHeadsForGeyser(Plugin plugin, @NonNull GeyserConnection playerConn, int animateHeadBlockDistance) {
+		this.playerConn = playerConn;
 		this.plugin = plugin;
 		radius = animateHeadBlockDistance;
 	}
@@ -54,8 +48,8 @@ public class AnimateHeadsForGeyser implements Listener {
     {
 		if (!FloodgateApi.getInstance().isFloodgatePlayer(event.getPlayer().getUniqueId()))
             return;
-    	headsToAnimate = new ArrayList<Location>();
-    	animatedHeads = new ArrayList<Location>();
+		headsToAnimate.clear();
+    	animatedHeads.clear();
     }
 	
 	@EventHandler
@@ -63,19 +57,19 @@ public class AnimateHeadsForGeyser implements Listener {
     {
 		if (!FloodgateApi.getInstance().isFloodgatePlayer(event.getPlayer().getUniqueId()))
             return;
-    	headsToAnimate = new ArrayList<Location>();
-    	animatedHeads = new ArrayList<Location>();
+		headsToAnimate.clear();
+    	animatedHeads.clear();
     }
 	
-	public void animateForBedrockPlayer(FloodgatePlayer player){
+	public void animateForBedrockPlayer() {
 		Player BukkitPlayer = null;
 		try {
-			BukkitPlayer = Bukkit.getPlayer(player.getCorrectUniqueId());
+			BukkitPlayer = Bukkit.getPlayer(playerConn.javaUuid());
 		}
-		catch(IllegalArgumentException e)
+		catch(NullPointerException e)
 		{
-			return;
 			//may be null in the very first milliseconds of connecting to the server.
+			//Not sure if this is still the case anymore, todo: test for null.
 		}
 		if(BukkitPlayer==null)
 			return;
@@ -95,16 +89,16 @@ public class AnimateHeadsForGeyser implements Listener {
 				// send deanimate packet
 				switch (currentMaterial) {
 				case DRAGON_HEAD:
-					sendAnimatePacket(player, activeHead.getBlock(), 5, 0);
+					sendAnimatePacket(playerConn, activeHead.getBlock(), 5, 0);
 					break;
 				case DRAGON_WALL_HEAD:
-					sendAnimatePacket(player, activeHead.getBlock(), 5, 0);
+					sendAnimatePacket(playerConn, activeHead.getBlock(), 5, 0);
 					break;
 				case PIGLIN_HEAD:
-					sendAnimatePacket(player, activeHead.getBlock(), 6, 0);
+					sendAnimatePacket(playerConn, activeHead.getBlock(), 6, 0);
 					break;
 				case PIGLIN_WALL_HEAD:
-					sendAnimatePacket(player, activeHead.getBlock(), 6, 0);
+					sendAnimatePacket(playerConn, activeHead.getBlock(), 6, 0);
 					break;
 				default:
 					break;
@@ -140,16 +134,16 @@ public class AnimateHeadsForGeyser implements Listener {
 			Material materialOfBlock = headBlock.getType();
 			switch (materialOfBlock) {
 			case DRAGON_HEAD:
-				sendAnimatePacket(player, headBlock, 5, 1);
+				sendAnimatePacket(playerConn, headBlock, 5, 1);
 				break;
 			case DRAGON_WALL_HEAD:
-				sendAnimatePacket(player, headBlock, 5, 1);
+				sendAnimatePacket(playerConn, headBlock, 5, 1);
 				break;
 			case PIGLIN_HEAD:
-				sendAnimatePacket(player, headBlock, 6, 1);
+				sendAnimatePacket(playerConn, headBlock, 6, 1);
 				break;
 			case PIGLIN_WALL_HEAD:
-				sendAnimatePacket(player, headBlock, 6, 1);
+				sendAnimatePacket(playerConn, headBlock, 6, 1);
 				break;
 			default:
 				break;
@@ -173,7 +167,7 @@ public class AnimateHeadsForGeyser implements Listener {
 	}
 
 	// animate or deanimate bedrock animations for vanilla skulls.
-	public void sendAnimatePacket(FloodgatePlayer player, Block head, int headType, int animationStatus) {
+	public void sendAnimatePacket(Connection playerConn, Block head, int headType, int animationStatus) {
 		NbtMapBuilder builder = NbtMap.builder();
 		builder.putByte("DoingAnimation", (byte) animationStatus);
 		builder.putInt("MouthTickCount", animationStatus);
@@ -246,20 +240,6 @@ public class AnimateHeadsForGeyser implements Listener {
 		headAnimationPacket.setBlockPosition(Vector3i.from(head.getX(), head.getY(), head.getZ()));
 		headAnimationPacket.setData(builder.build());
 		GeyserImpl geyserInstance = (GeyserImpl) Geyser.api();
-		geyserInstance.connectionByUuid(player.getCorrectUniqueId()).sendUpstreamPacket((BedrockPacket) headAnimationPacket);
-		
-		// When I was testing sending packet through floodgate api but obviously this is not how you do it. You have to use geyser api.
-		
-//		ByteArrayOutputStream bos = new ByteArrayOutputStream(); 
-//		ObjectOutputStream oos = new ObjectOutputStream(bos);
-		//oos.writeObject(builder.build().toString());
-		
-//		Gson gson = new Gson();
-//		String PacketdataString = "{'DoingAnimation':"+animationStatus+",'MouthTickCount':"+animationStatus+",'Rotation':"+rotationDegree+",'SkullType':"+headType+",'id':'Skull','isMovable':"+1+",'x':"+head.getX()+",'y':"+head.getY()+",'z':"+head.getZ()+"}";
-//		JsonElement PacketdataJson = gson.fromJson(PacketdataString,JsonElement.class);
-		//String HeadPacketString = "BlockEntityDataPacket(blockPosition=("+head.getX()+","+head.getY()+","+head.getZ()+"),data="+PacketdataJson+")";
-		//plugin.getLogger().info(headAnimationPacket.toString());
-		//FloodgateApi.getInstance().unsafe().sendPacket(player, 0x38, headAnimationPacket.toString().getBytes());
-		
+		geyserInstance.connectionByUuid(playerConn.javaUuid()).sendUpstreamPacket((BedrockPacket) headAnimationPacket);
 	}
 }
