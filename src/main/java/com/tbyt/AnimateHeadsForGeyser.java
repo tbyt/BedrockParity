@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -34,6 +35,7 @@ public class AnimateHeadsForGeyser implements Listener {
 	private final Plugin plugin;
 	private ArrayList<Location> headsToAnimate = new ArrayList<Location>();
 	private ArrayList<Location> animatedHeads = new ArrayList<Location>();
+	private Boolean movedAfterEvent = false;
 	private int radius;
 	private GeyserConnection playerConn;
 
@@ -48,8 +50,7 @@ public class AnimateHeadsForGeyser implements Listener {
     {
 		if (!FloodgateApi.getInstance().isFloodgatePlayer(event.getPlayer().getUniqueId()))
             return;
-		headsToAnimate.clear();
-    	animatedHeads.clear();
+		movedAfterEvent = true;
     }
 	
 	@EventHandler
@@ -57,9 +58,22 @@ public class AnimateHeadsForGeyser implements Listener {
     {
 		if (!FloodgateApi.getInstance().isFloodgatePlayer(event.getPlayer().getUniqueId()))
             return;
-		headsToAnimate.clear();
-    	animatedHeads.clear();
+		movedAfterEvent = true;
     }
+	
+	@EventHandler
+	public void geyserPlayerMove(PlayerMoveEvent event)
+	{
+		if(movedAfterEvent)
+		{
+			// resend animation packet(s) if an event occurs.
+			for (Location activeHead : animatedHeads) {
+				Block headBlock = activeHead.getBlock();
+				prepareHeadAnimation(headBlock);
+			}
+			movedAfterEvent = false;
+		}
+	}
 	
 	public void animateForBedrockPlayer() {
 		Player BukkitPlayer = null;
@@ -77,32 +91,19 @@ public class AnimateHeadsForGeyser implements Listener {
 		// this for loop is if the head is broken and not at the location anymore or not powered.
 		ArrayList<Location> headsToRemove = new ArrayList<Location>();
 		for (Location activeHead : headsToAnimate) {
-			Material currentMaterial = activeHead.getBlock().getType();
-			if (!isHead(currentMaterial)) {
+			Block headBlock = activeHead.getBlock();
+			Material materialOfBlock = headBlock.getType();
+			if (!isHead(materialOfBlock)) {
+				//do not need to send deanimate packet because block material is no longer a head.
 				headsToRemove.add(activeHead);
 				continue;
 			}
-			if (activeHead.getBlock().isBlockPowered())
+			if (headBlock.isBlockPowered())
 				continue;
-			if(!activeHead.getBlock().isBlockIndirectlyPowered()) {
+			if(!headBlock.isBlockIndirectlyPowered()) {
 				headsToRemove.add(activeHead);
 				// send deanimate packet
-				switch (currentMaterial) {
-				case DRAGON_HEAD:
-					sendAnimatePacket(playerConn, activeHead.getBlock(), 5, 0);
-					break;
-				case DRAGON_WALL_HEAD:
-					sendAnimatePacket(playerConn, activeHead.getBlock(), 5, 0);
-					break;
-				case PIGLIN_HEAD:
-					sendAnimatePacket(playerConn, activeHead.getBlock(), 6, 0);
-					break;
-				case PIGLIN_WALL_HEAD:
-					sendAnimatePacket(playerConn, activeHead.getBlock(), 6, 0);
-					break;
-				default:
-					break;
-				}
+				prepareHeadDeanimation(headBlock);
 			}
 		}
 		headsToAnimate.removeAll(headsToRemove);
@@ -131,23 +132,49 @@ public class AnimateHeadsForGeyser implements Listener {
 				continue;
 			animatedHeads.add(activeHead);
 			Block headBlock = activeHead.getBlock();
-			Material materialOfBlock = headBlock.getType();
-			switch (materialOfBlock) {
-			case DRAGON_HEAD:
-				sendAnimatePacket(playerConn, headBlock, 5, 1);
-				break;
-			case DRAGON_WALL_HEAD:
-				sendAnimatePacket(playerConn, headBlock, 5, 1);
-				break;
-			case PIGLIN_HEAD:
-				sendAnimatePacket(playerConn, headBlock, 6, 1);
-				break;
-			case PIGLIN_WALL_HEAD:
-				sendAnimatePacket(playerConn, headBlock, 6, 1);
-				break;
-			default:
-				break;
-			}
+			prepareHeadAnimation(headBlock);
+		}
+	}
+	
+	public void prepareHeadAnimation(Block headBlock)
+	{
+		Material materialOfBlock = headBlock.getType();
+		switch (materialOfBlock) {
+		case DRAGON_HEAD:
+			sendAnimatePacket(playerConn, headBlock, 5, 1);
+			break;
+		case DRAGON_WALL_HEAD:
+			sendAnimatePacket(playerConn, headBlock, 5, 1);
+			break;
+		case PIGLIN_HEAD:
+			sendAnimatePacket(playerConn, headBlock, 6, 1);
+			break;
+		case PIGLIN_WALL_HEAD:
+			sendAnimatePacket(playerConn, headBlock, 6, 1);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void prepareHeadDeanimation(Block headBlock)
+	{
+		Material materialOfBlock = headBlock.getType();
+		switch (materialOfBlock) {
+		case DRAGON_HEAD:
+			sendAnimatePacket(playerConn, headBlock, 5, 0);
+			break;
+		case DRAGON_WALL_HEAD:
+			sendAnimatePacket(playerConn, headBlock, 5, 0);
+			break;
+		case PIGLIN_HEAD:
+			sendAnimatePacket(playerConn, headBlock, 6, 0);
+			break;
+		case PIGLIN_WALL_HEAD:
+			sendAnimatePacket(playerConn, headBlock, 6, 0);
+			break;
+		default:
+			break;
 		}
 	}
 

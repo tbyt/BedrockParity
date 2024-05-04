@@ -14,7 +14,7 @@ public class BedrockParity extends JavaPlugin {
 	public void onEnable() {
 		FileConfiguration config = getConfig();
 		config.addDefault("sweeping-edge-book-anvil-fix", true);
-		config.addDefault("animate-heads-for-bedrock", true);
+		config.addDefault("animate-heads-for-bedrock", 12);
 		config.options().copyDefaults(true);
 		saveDefaultConfig();
 		try {
@@ -29,6 +29,7 @@ public class BedrockParity extends JavaPlugin {
 				getLogger().info("Sweeping Edge Book Fix in Anvil is enabled.");
 			} else
 				getLogger().info("Sweeping Edge Book Fix in Anvil is manually disabled.");
+			//if Minecraft Version is less than 1.20.2 because Geyser fixes it for servers 1.20.2 and greater.
 			if (Bukkit.getUnsafe().getDataVersion() < 3466) {
 				if (Bukkit.getPluginManager().getPlugin("Geyser-Spigot") != null) {
 					int animateHeadBlockDistance = this.getConfig().getInt("animate-head-blocks-distance");
