@@ -51,8 +51,6 @@ body:
     label: Geyser Version
     description: What version of Geyser are you running?
     placeholder: "For example: 1.2.0-SNAPSHOT (git-master-2d9baf1)"
-  validations:
-    required: true
 - type: input
   attributes:
     label: "Minecraft: Bedrock Edition Device/Version"
