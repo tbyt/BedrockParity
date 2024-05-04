@@ -64,6 +64,7 @@ public class AnimateHeadsForGeyser implements Listener {
 	@EventHandler
 	public void geyserPlayerMove(PlayerMoveEvent event)
 	{
+		//only geyser players can modify movedAfterEvent Boolean to true so we do not need floodgate check here.
 		if(movedAfterEvent)
 		{
 			// resend animation packet(s) if an event occurs.
