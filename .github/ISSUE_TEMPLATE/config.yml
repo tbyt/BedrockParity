@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Get help on the TBYT Discord server
+    url: https://discord.gg/G9sXFH2FKR
+    about: If your issue seems like it could possibly be an easy fix due to configuration, please hop on our Discord.
